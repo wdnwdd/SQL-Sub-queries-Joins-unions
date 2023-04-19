@@ -1,0 +1,144 @@
+All of the below queries are taken from chinook database for practicing Sub queries, unions and joins. 
+
+The schema model is given at: 
+#1. How many albums does the artist Led Zeppelin have?
+####SQL Query :
+
+SELECT Name, COUNT(Title)
+FROM artists
+LEFT JOIN albums
+ON artists.ArtistId = albums.ArtistId
+WHERE artists.Name='Led Zeppelin'
+
+#####SQL Output :
++----------+
+| count(*) |
++----------+
+|       14 |
++----------+
+
+#2.Create a list of album titles and the unit prices for the artist "Audioslave".
+ER Diagram: 
+####SQL Query:
+
+Select a.title,t.Unitprice
+From albums a 
+INNER JOIN  tracks t on a.AlbumId = t.AlbumId
+INNER JOIN Artists ar on ar.artistid=a.artistid
+where ar.Name='Audioslave'
+
+#SQL  Output
++--------------+-----------+
+| Title        | UnitPrice |
++--------------+-----------+
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Audioslave   |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
+| Out Of Exile |      0.99 |
++--------------+-----------+
+(Output limit exceeded, 25 of 40 total rows shown)
+
+
+#3. How many records are returned?
+#Only 25 records will be shown in the output so please look at the bottom of the output to see how many records were retrieved.
+Ans: 25
+
+#4.Find the first and last name of any customer who does not have an invoice. Are there any customers returned from the query?  
+
+####SQL Query
+Select c.FirstName, c.LastName, i.Invoiceid
+from customers c inner join invoices i
+on c.CustomerId = i.CustomerId
+WHERE Invoiceid IS NULL
+
+###SQL Output
+
++-----------+----------+-----------+
+| FirstName | LastName | InvoiceId |
++-----------+----------+-----------+
++-----------+----------+-----------+
+
+
+#5.Find the total price for each album.
+What is the total price for the album “Big Ones”?
+
+#SQL Query
+Select a.Albumid, a.title, SUM(t.Unitprice) as Totalprice
+From albums a LEFT JOIN tracks t
+ON a.AlbumId=t.AlbumId
+Where a.title is 'Big Ones'
+
+#sql Output
+
++---------+----------+------------+
+| AlbumId | Title    | Totalprice |
++---------+----------+------------+
+|       5 | Big Ones |      14.85 |
++---------+----------+------------+
+
+
+
+
+#6.How many records are created when you apply a Cartesian join to the invoice and invoice items table?
+
+#sql query
+
+SELECT i.InvoiceId, ii.TrackId
+FROM invoices i CROSS JOIN invoice_items ii
+
+#SQL Output
+
++-----------+---------+
+| InvoiceId | TrackId |
++-----------+---------+
+|         1 |       2 |
+|         1 |       4 |
+|         1 |       6 |
+|         1 |       8 |
+|         1 |      10 |
+|         1 |      12 |
+|         1 |      16 |
+|         1 |      20 |
+|         1 |      24 |
+|         1 |      28 |
+|         1 |      32 |
+|         1 |      36 |
+|         1 |      42 |
+|         1 |      48 |
+|         1 |      54 |
+|         1 |      60 |
+|         1 |      66 |
+|         1 |      72 |
+|         1 |      78 |
+|         1 |      84 |
+|         1 |      90 |
+|         1 |      99 |
+|         1 |     108 |
+|         1 |     117 |
+|         1 |     126 |
++-----------+---------+
+(Output limit exceeded, 25 of 922880 total rows shown)
+
+
+
